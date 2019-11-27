@@ -503,7 +503,7 @@ Type THd44780 Implements IDisposable
 	End Method
 	
 	Rem
-	bbdoc: Enable/disable the underline cursor.
+	bbdoc: Enables/disables the underline cursor.
 	End Rem
 	Method SetUnderlineCursorVisible(value:Int)
 		If value Then
@@ -523,7 +523,7 @@ Type THd44780 Implements IDisposable
 	End Method
 	
 	Rem
-	bbdoc: Enable/disable the blinking cursor.
+	bbdoc: Enables/disables the blinking cursor.
 	End Rem
 	Method SetBlinkingCursorVisible(value:Int)
 		If value Then
@@ -535,14 +535,16 @@ Type THd44780 Implements IDisposable
 	End Method
 	
 	Rem
-	bbdoc: 
+	bbdoc: Returns whether auto shift is enabled.
+	about: When enabled the display will shift rather than the cursor.
 	End Rem
 	Method GetAutoShift:Int()
 		Return (displayMode & EDisplayEntryMode.DisplayShift).Ordinal()
 	End Method
 	
 	Rem
-	bbdoc: 
+	bbdoc: Enables/disabled auto shift.
+	about: When enabled the display will shift rather than the cursor.
 	End Rem
 	Method SetAutoShift(value:Int)
 		If value Then
@@ -554,14 +556,14 @@ Type THd44780 Implements IDisposable
 	End Method
 	
 	Rem
-	bbdoc: 
+	bbdoc: Gets whether the cursor location increments or decrements.
 	End Rem
 	Method GetIncrement:Int()
 		Return (displayMode & EDisplayEntryMode.Increment).Ordinal()
 	End Method
 	
 	Rem
-	bbdoc: 
+	bbdoc: Sets whether the cursor location increments (#True) or decrements (#False).
 	End Rem
 	Method SetIncrement(value:Int)
 		If value Then
@@ -573,28 +575,28 @@ Type THd44780 Implements IDisposable
 	End Method
 	
 	Rem
-	bbdoc: 
+	bbdoc: Moves the display left by one position.
 	End Rem
 	Method ShiftDisplayLeft()
 		SendCommand((EDisplayShift.Command | EDisplayShift.Display).Ordinal())
 	End Method
 	
 	Rem
-	bbdoc: 
+	bbdoc: Moves the display right by one position.
 	End Rem
 	Method ShiftDisplayRight()
 		SendCommand((EDisplayShift.Command | EDisplayShift.Display | EDisplayShift.Right).Ordinal())
 	End Method
 
 	Rem
-	bbdoc: 
+	bbdoc: Moves the cursor left by one position.
 	End Rem
 	Method ShiftCursorLeft()
 		SendCommand((EDisplayShift.Command | EDisplayShift.Display).Ordinal())
 	End Method
 	
 	Rem
-	bbdoc: 
+	bbdoc: Moves the cursor right by one position.
 	End Rem
 	Method ShiftCursorRight()
 		SendCommand((EDisplayShift.Command | EDisplayShift.Display | EDisplayShift.Right).Ordinal())
@@ -632,7 +634,6 @@ Type TLcd1602 Extends THd44780
 	
 	Rem
 	bbdoc: Constructs a new HD44780 based 16x2 LCD controller with integrated I2c support.
-
 	End Rem
 	Method New(device:TI2cDevice)
 		Super.New(New SSize(16, 2), New TLCDI2c(device))
