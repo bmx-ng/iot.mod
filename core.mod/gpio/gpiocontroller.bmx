@@ -48,6 +48,12 @@ Public
 		driver = New TLibGpiodDriver()
 		openPins = New Int[PinCount()]
 	End Method
+	
+	Method New(numberingScheme:EPinNumberingScheme, driver:TGpioDriver)
+		Self.numberingScheme = numberingScheme
+		Self.driver = driver
+		openPins = New Int[PinCount()]
+	End Method
 
 	Rem
 	bbdoc: Returns the number of pins provided by the controller.
