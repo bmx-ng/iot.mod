@@ -94,7 +94,8 @@ Type TLCDGpio Extends TLCDInterface
 	
 	Method New(registerSelectPin:Int, enablePin:Int, dataPins:Int[], backlightPin:Int = -1, backlightBrightness:Float = 1.0, readWritePin:Int = -1, controller:TGpioController = Null)
 		rsPin = registerSelectPin
-		rwPin = enablePin
+		rwPin = readWritePin
+		Self.enablePin = enablePin
 		Self.dataPins = dataPins
 		backlight = backlightPin
 		Self.backlightBrightness = backlightBrightness
