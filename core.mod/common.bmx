@@ -332,6 +332,35 @@ Struct SPinValuePair
 	
 End Struct
 
+Struct SPinVector32
+	Field pins:UInt
+	Field values:UInt
+	
+	Method New(pins:UInt, values:UInt)
+		Self.pins = pins
+		Self.values = values
+	End Method
+	
+	Method New(pinValues:SPinValuePair[])
+		pins = 0
+		values = 0
+		
+		For Local i:Int = 0 Until pinValues.length
+			Local pin:Int = pinValues[i].pinNumber
+			If pin < 0 Or pin >= 4 * 8 Then
+				Throw New TArgumentOutOfRangeException("pinValues")
+			End If
+			
+			Local bit:UInt = 1 Shl pin
+			pins :| bit
+			
+			If pinValues[i].pinValue = EPinValue.High Then
+				values :| bit
+			End If
+		Next
+	End Method
+	
+End Struct
 
 Function DelayMicroseconds(microseconds:Int, allowThreadYield:Int)
 	
