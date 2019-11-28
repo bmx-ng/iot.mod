@@ -28,7 +28,9 @@ Type TPcx857x Extends TGpioDriver
 			End If
 			masterGpioController.OpenPin(interrupt, EpinMode.Input)
 		End If
-		
+	End Method
+	
+	Method Initialize()
 		' These controllers do not have commands, setting the pins to high designates
 		' them as able to recieve input. As we don't want to set high on pins intended
 		' for output we'll set all of the pins to low for our initial state.
@@ -38,7 +40,7 @@ Type TPcx857x Extends TGpioDriver
 			InternalWriteUInt16(0)
 		End If
 		
-		pinModes = $FFFF
+		pinModes = $FFFF	
 	End Method
 	
 	Method ReadByte:Byte()
@@ -198,7 +200,7 @@ End Type
 Rem
 bbdoc: Base class for 8 bit I/O expanders.
 End Rem
-Type TPcx8574 Extends TPcx857x
+Type TPcx8574 Extends TPcx857x Abstract
 
 	Method New(device:TI2cDevice, interrupt:Int = -1, gpioController:TGpioController = Null)
 		Super.New(device, interrupt, gpioController)
