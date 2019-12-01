@@ -14,7 +14,7 @@ Type TPcx857x Extends TGpioDriver
 	
 	Field pinValues:Short
 	
-	Method New(device:TI2cDevice, interrupt:Int = -1, gpioController:TGpioController = Null)
+	Method Create:TPcx857x(device:TI2cDevice, interrupt:Int = -1, gpioController:TGpioController = Null)
 		If Not device Then
 			Throw New TArgumentNullException("device")
 		End If
@@ -28,9 +28,7 @@ Type TPcx857x Extends TGpioDriver
 			End If
 			masterGpioController.OpenPin(interrupt, EpinMode.Input)
 		End If
-	End Method
-	
-	Method Initialize()
+
 		' These controllers do not have commands, setting the pins to high designates
 		' them as able to recieve input. As we don't want to set high on pins intended
 		' for output we'll set all of the pins to low for our initial state.
@@ -41,6 +39,8 @@ Type TPcx857x Extends TGpioDriver
 		End If
 		
 		pinModes = $FFFF	
+
+		Return Self
 	End Method
 	
 	Method ReadByte:Byte()
@@ -202,10 +202,6 @@ bbdoc: Base class for 8 bit I/O expanders.
 End Rem
 Type TPcx8574 Extends TPcx857x Abstract
 
-	Method New(device:TI2cDevice, interrupt:Int = -1, gpioController:TGpioController = Null)
-		Super.New(device, interrupt, gpioController)
-	End Method
-
 	Method PinCount:Int()
 		Return 8
 	End Method
@@ -216,9 +212,5 @@ Rem
 bbdoc: Remote 8-bit I/O expander for I2C-bus with interrupt.
 End Rem
 Type TPcf8574 Extends TPcx8574
-
-	Method New(device:TI2cDevice, interrupt:Int = -1, gpioController:TGpioController = Null)
-		Super.New(device, interrupt, gpioController)
-	End Method
 
 End Type

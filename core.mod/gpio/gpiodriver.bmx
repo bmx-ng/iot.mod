@@ -28,9 +28,6 @@ Import "../common.bmx"
 
 Type TGpioDriver Implements IDisposable Abstract
 
-	Method Initialize()
-	End Method
-	
 	Method PinCount:Int() Abstract
 	
 	Method ConvertPinNumberToLogicalNumberingScheme:Int(pinNumber:Int) Abstract
