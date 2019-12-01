@@ -647,7 +647,7 @@ Type THd44780 Implements IDisposable
 		End If
 		
 		' The character address is set in bits 3-5 of the command byte
-		SendCommand(SET_CG_RAM_ADDRESS_COMMAND | (location Shl 3))
+		SendCommand(Byte(SET_CG_RAM_ADDRESS_COMMAND | (location Shl 3)))
 		SendData(characterMap, characterMap.Length)
 	End Method
 	
