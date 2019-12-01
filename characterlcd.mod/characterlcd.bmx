@@ -648,7 +648,7 @@ Type THd44780 Implements IDisposable
 		
 		' The character address is set in bits 3-5 of the command byte
 		SendCommand(Byte(SET_CG_RAM_ADDRESS_COMMAND | (location Shl 3)))
-		SendData(characterMap, characterMap.Length)
+		SendData(characterMap, Size_T(characterMap.Length))
 	End Method
 	
 	
