@@ -24,7 +24,11 @@
 SuperStrict
 
 Import brl.threads
+Import brl.stringbuilder
+Import brl.standardio
 Import "../../common.bmx"
+
+Const DEBUG_WRITE:Int = False
 
 Rem
 bbdoc: The communications channel to a device on an I2C bus.
@@ -88,6 +92,20 @@ Private
 		Local messageCount:UInt
 		
 		If writeBuffer Then
+			If DEBUG_WRITE Then
+				Local sb:TStringBuilder = New TStringBuilder()
+				sb.Format("0x%x:", settings.GetDeviceAddress()).Format("0x%x:", writeBuffer[0])
+				If writeLength = 2 Then
+					sb.Format("0x%x", writeBuffer[1])
+				Else If writelength > 2 Then
+					For Local i:Int = 0 Until writelength - 1
+						sb.Format("%02x", writeBuffer[1 + i])
+					Next
+				End If
+				
+				Print sb.ToString()
+			End If
+			
 			messages[messageCount] = New i2c_msg(Short(settings.GetDeviceAddress()), Short(EI2cMessageFlags.I2C_M_WR), Short(writeLength), writeBuffer)
 			messageCount :+ 1
 		End If
